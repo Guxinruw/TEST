@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<style> 
+			.myCanvas{
+				border:1px solid
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var canvas=document.getElementById("myCanvas");
+				var ctx=canvas.getContext("2d");
+				var ww = ctx.canvas.width;
+				var wh = ctx.canvas.height;
+
+				function init(){
+					ctx.beginPath();
+					for(var i=0;i<12;i++){
+						var pos = i*50;
+						ctx.moveTo(pos,0);
+						ctx.lineTo(pos,wh);
+						ctx.fillText(pos,pos+5,10);
+						
+						ctx.moveTo(0,pos);
+						ctx.lineTo(ww,pos);
+						ctx.fillText(pos,5,pos-5);
+					}
+					ctx.strokeStyle = "rgba(0,0,0,0.2)";
+					ctx.stroke();
+					
+					
+					setInterval(load, 1000/100);
+					
+				}
+				init()
+				var time=0
+				function load(){
+					time++;
+					ctx.save();
+					ctx.beginPath();
+						ctx.fillStyle = "#212121";
+						ctx.fillRect(0,250,600,100);
+						
+						var stime = parseInt(time%150)*3;
+						ctx.translate(-stime,0);
+						ctx.lineWidth = 5;
+						ctx.strokeStyle = "white";
+						for(var k=0;k<20;k++){
+							if(k%3 ==0){
+								var lin = (k*50)+25;
+								ctx.moveTo(lin,300.5);
+								ctx.lineTo(lin+100,300.5);
+							}
+						}
+							
+					ctx.stroke();
+					ctx.fill();
+					
+					ctx.restore();
+					car();
+				}
+				var time2=0
+				function car(){
+					time2++;
+					ctx.save();
+					ctx.beginPath();
+						//if()
+						//ctx.translate(-time2%150,0);
+						ctx.fillStyle = "#ffd9ec";
+						ctx.lineWidth = 3;
+						ctx.strokeStyle = "#ff5151";
+						ctx.fillRect(50,255,50,25);
+						ctx.strokeRect(50,255,50,25);
+						
+						var stime2 = parseInt(time%150)*3;
+						
+						ctx.translate(60,280);
+						for(var i=0;i<8;i++){
+							if((i+stime2)%2!=0){
+								ctx.moveTo(0,0);
+								ctx.fillStyle = "black";
+								ctx.arc(0,0,5,0,Math.PI/4);
+								
+							}
+							ctx.rotate((Math.PI*2)/8);
+							//ctx.strokeStyle = "white";
+							//ctx.lineWidth = 5;
+							//ctx.arc(0,0,5,0,Math.PI/4);
+						}
+						
+						ctx.translate(30,0);
+						for(var i=0;i<8;i++){
+							if((i+stime2)%2!=0){
+								ctx.moveTo(0,0);
+								ctx.fillStyle = "black";
+								ctx.arc(0,0,5,0,Math.PI/4);
+								ctx.strokeStyle = "white";
+								ctx.lineWidth = 5;
+							}
+							ctx.rotate((Math.PI*2)/8)
+						}
+					
+					ctx.stroke();
+					ctx.fill();
+					ctx.restore();
+				}
+				//car();
+				//setInterval(car, 1000/30);
+				
+				//滑鼠事件
+				var mouse = {x:0,y:0};
+				canvas.addEventListener("mousemove",function(evt){
+					mouse.x = evt.offsetX;
+					mouse.y = evt.offsetY;
+				});
+			}
+			
+		</script>
+	</head>
+	<body>
+		<canvas id="myCanvas" class="myCanvas" width="600" height="400"></canvas>
+	</body>
+</html>
